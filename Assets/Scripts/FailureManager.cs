@@ -9,10 +9,21 @@ public class FailureManager : MonoBehaviour
 
     [SerializeField] Transform[] failureSpots = null;
     [SerializeField] Failure failurePrefab = null;
-    [SerializeField] Animator roverAnim;
+    [SerializeField] Animator roverAnim = null;
+    [SerializeField] HeadLook headLook= null;
     List<Failure> onGoingFailures = new List<Failure>();
+    float lastClearTime;
+    [SerializeField] float minTimeSinceClear = 3;
 
     StateToken stopRoverToken;
+
+    public bool HasFailure
+    {
+        get
+        {
+            return onGoingFailures.Count > 0;
+        }
+    }
 
     public static FailureManager Instance;
 
@@ -45,6 +56,13 @@ public class FailureManager : MonoBehaviour
             roverAnim.SetTrigger("Happy");
             RoverAudio.Instance.StopLoop();
             RoverAudio.Instance.PlayClip(5);
+
+            if (headLook.lookState != HeadLook.LookState.ScanFixe && headLook.lookState != HeadLook.LookState.ScanCharacter)
+                headLook.lookState = HeadLook.LookState.Forward;
+
+            VoicesManager.Instance.PlayFixClip();
+
+            lastClearTime = Time.time;
         }
     }
 
@@ -54,7 +72,7 @@ public class FailureManager : MonoBehaviour
 
         while(GameManager.isPlaying)
         {
-            if(Random.Range(0f, 1f)<Time.deltaTime/ GameProgress.AverageFailureTime)
+            if(Time.time> lastClearTime+minTimeSinceClear && Random.Range(0f, 1f)<Time.deltaTime/ GameProgress.AverageFailureTime)
             {
                 //Failure
                 FailureType type = (FailureType)Random.Range(0, System.Enum.GetValues(typeof(FailureType)).Length);
@@ -73,6 +91,15 @@ public class FailureManager : MonoBehaviour
                     Failure newFailure = Instantiate(failurePrefab, pos, Quaternion.identity,transform);
                     onGoingFailures.Add(newFailure);
                     newFailure.Init(type, roverAnim);
+
+                    if(headLook.lookState != HeadLook.LookState.ScanFixe && headLook.lookState != HeadLook.LookState.ScanCharacter)
+                        headLook.SetLookWorldTarget(pos);
+
+                    //If the failure we added is the only one
+                    if(onGoingFailures.Count==1)
+                    {
+                        VoicesManager.Instance.PlayNextFailureClip();
+                    }
                 }
             }
 

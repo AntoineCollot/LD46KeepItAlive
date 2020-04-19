@@ -9,10 +9,10 @@ public class SateliteScan : MonoBehaviour
     [SerializeField] Transform centerPoint=null;
 
     [Header("Grid")]
-    [SerializeField] float width = 4;
     [SerializeField] Projector gridProjector=null;
     [SerializeField] float showGridDelay = 1;
     [SerializeField] float showGridProgressTime = 1f;
+    [SerializeField] float showGridPauseTime = 1f;
 
     [Header("Satelite")]
     [SerializeField] Projector satelliteProjector = null;
@@ -23,17 +23,21 @@ public class SateliteScan : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        gridProjector.material.SetFloat("_Reveal", 0);
+        gridProjector.material.SetFloat("_Reveal", 1);
+        gridProjector.aspectRatio = 0;
     }
 
-    public void Scan()
+    public float Scan()
     {
         //Place the satellite
         Vector3 pos = transform.position;
         pos.x = centerPoint.position.x + Random.Range(-maxDistanceFromRover, maxDistanceFromRover);
+        transform.position = pos;
 
         StartCoroutine(SatelliteTraveling());
         StartCoroutine(ScanC());
+
+        return showGridDelay + showGridProgressTime *2 + showGridPauseTime;
     }
 
     IEnumerator SatelliteTraveling()
@@ -51,9 +55,9 @@ public class SateliteScan : MonoBehaviour
 
     IEnumerator ScanC()
     {
-        gridProjector.material.SetFloat("_Reveal", 0);
-        float aspectRatio = width * 2 / gridProjector.orthographicSize;
-        gridProjector.aspectRatio = aspectRatio;
+        float width = GameProgress.SatteliteScanWidth;
+        float aspectRatio = width / (gridProjector.orthographicSize * 2);
+        gridProjector.aspectRatio = 0;
 
         yield return new WaitForSeconds(showGridDelay);
 
@@ -62,10 +66,12 @@ public class SateliteScan : MonoBehaviour
         {
             t += Time.deltaTime / showGridProgressTime;
 
-            gridProjector.material.SetFloat("_Reveal", t);
+            gridProjector.aspectRatio = Curves.QuadEaseInOut(0, aspectRatio, Mathf.Clamp01(t));
 
             yield return null;
         }
+
+        yield return new WaitForSeconds(showGridPauseTime);
 
         //Detect player
         Vector3 toPlayer = CharacterControls.Position - transform.position;
@@ -77,13 +83,11 @@ public class SateliteScan : MonoBehaviour
         t = 0;
         while (t < 1)
         {
-            t += Time.deltaTime / 0.3f;
+            t += Time.deltaTime / showGridProgressTime;
 
             gridProjector.aspectRatio = Curves.QuadEaseInOut(aspectRatio, 0, Mathf.Clamp01(t));
 
             yield return null;
         }
-
-        gridProjector.material.SetFloat("_Reveal", 0);
     }
 }

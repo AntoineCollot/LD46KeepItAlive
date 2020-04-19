@@ -44,6 +44,7 @@ public class ScanManager : MonoBehaviour
     {
         StartCoroutine(RoverScanLoop());
         StartCoroutine(AntenaScanLoop());
+        StartCoroutine(SatelliteScanLoop());
     }
 
     IEnumerator AntenaScanLoop()
@@ -71,7 +72,7 @@ public class ScanManager : MonoBehaviour
             {
                 //Check if we should scan
                 bool scan = Random.Range(0f, 1f) < Time.deltaTime / roverAverageScanInterval;
-                if (scan)
+                if (scan && !FailureManager.Instance.HasFailure)
                 {
                     yield return StartCoroutine(PerformRoverScan());
                     lastScanTimer = 0;
@@ -124,6 +125,21 @@ public class ScanManager : MonoBehaviour
 
         headLook.lookState = HeadLook.LookState.Forward;
         print("Rover Scan Finished");
+    }
+
+    IEnumerator SatelliteScanLoop()
+    {
+        yield return new WaitForSeconds(firstSatelliteScanTime);
+
+        while(GameManager.isPlaying)
+        {
+            if (Random.Range(0f, 1f) < Time.deltaTime/ GameProgress.AverageSatteliteScanTime)
+            {
+                yield return new WaitForSeconds(satelliteScan.Scan());
+            }
+
+            yield return null;
+        }
     }
 
     public bool IsPlayerInView(float angle)

@@ -46,6 +46,28 @@ public class GameProgress : MonoBehaviour
         }
     }
 
+    [SerializeField] float averageSatelliteScanStartTime = 20;
+    [SerializeField] float averageSatelliteScanEndTime = 5;
+
+    public static float AverageSatteliteScanTime
+    {
+        get
+        {
+            return Mathf.Lerp(Instance.averageSatelliteScanStartTime, Instance.averageSatelliteScanEndTime, GameTime / EndGameTime);
+        }
+    }
+
+    [SerializeField] float satelliteScanStartWidth = 4;
+    [SerializeField] float satelliteScanEndWidth = 10;
+
+    public static float SatteliteScanWidth
+    {
+        get
+        {
+            return Mathf.Lerp(Instance.satelliteScanStartWidth, Instance.satelliteScanEndWidth, GameTime / EndGameTime);
+        }
+    }
+
     private void Awake()
     {
         Instance = this;
