@@ -8,14 +8,27 @@ public class Failure : MonoBehaviour
     Animator roverAnim;
 
     [SerializeField] GameObject commandPrompt = null;
+    [SerializeField] GameObject criticalFX = null;
+    [SerializeField] float fixingTime = 1.5f;
+    [SerializeField] float timeBeforeCriticalState = 3;
+    [SerializeField] float timeBeforeGameOver = 3;
     bool playerInContact;
+    bool isBeingFixed;
+
+    StateToken stopCharacterToken;
+    StateToken shakeToken;
 
     public void Init(FailureManager.FailureType type, Animator roverAnim)
     {
         this.type = type;
         this.roverAnim = roverAnim;
+        stopCharacterToken = new StateToken();
+        shakeToken = new StateToken();
+        Shake.Instance.criticalShakeState.Add(shakeToken);
 
         SetAnim(true);
+
+        StartCoroutine(FailureIntensify());
     }
 
     private void OnTriggerEnter(Collider other)
@@ -64,8 +77,41 @@ public class Failure : MonoBehaviour
         {
             if(Input.GetKeyDown(KeyCode.Space))
             {
-                Cleared();
+                CharacterControls.Instance.stopCharacterState.Add(stopCharacterToken);
+                stopCharacterToken.isOn = true;
+                isBeingFixed = true;
+                Invoke("FinishFixing", fixingTime);
+                AlienAudio.Instance.PlayCip(2);
             }
         }
+    }
+
+    void FinishFixing()
+    {
+        Cleared();
+        stopCharacterToken.isOn = false;
+        CharacterControls.Instance.stopCharacterState.Remove(stopCharacterToken);
+        shakeToken.isOn = false;
+        Shake.Instance.criticalShakeState.Remove(shakeToken);
+    }
+
+    IEnumerator FailureIntensify()
+    {
+        RoverAudio.Instance.PlayLoop(3);
+
+        yield return new WaitForSeconds(timeBeforeCriticalState);
+
+        if (isBeingFixed)
+            yield break;
+
+        shakeToken.isOn = true;
+        criticalFX.SetActive(true);
+        RoverAudio.Instance.PlayLoop(4);
+
+        yield return new WaitForSeconds(timeBeforeGameOver);
+
+        if (isBeingFixed)
+            yield break;
+        GameManager.Instance.GameOver("You failed to fix the rover in time");
     }
 }

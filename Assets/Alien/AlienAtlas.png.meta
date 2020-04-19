@@ -1,0 +1,433 @@
+fileFormatVersion: 2
+guid: f0b76560cc9a80242a1863cf67c780ff
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -3494491990766693557
+    second: AlienAtlas_LegR
+  - first:
+      213: 8118740873715126834
+    second: AlienAtlas_LegR
+  - first:
+      213: 8118740873715126834
+    second: AlienAtlas_LegL
+  - first:
+      213: 1351034745823822119
+    second: AlienAtlas_1
+  - first:
+      213: -3016600872824233339
+    second: AlienAtlas_Eye
+  - first:
+      213: 4580307204183495526
+    second: AlienAtlas_EyeLow
+  - first:
+      213: 1748385343898664025
+    second: AlienAtlas_Hairs
+  - first:
+      213: -1969636690340607869
+    second: AlienAtlas_Body
+  - first:
+      213: 598393711657188129
+    second: AlienAtlas_ArmL
+  - first:
+      213: 6737912568687744384
+    second: AlienAtlas_ArmR
+  - first:
+      213: -2207172652955845093
+    second: AlienAtlas_ArmHideL
+  - first:
+      213: -4922092798262726856
+    second: AlienAtlas_ArmHideR
+  - first:
+      213: 767408516721749111
+    second: AlienAtlas_ArmFix1
+  - first:
+      213: 6880769205115236032
+    second: AlienAtlas_ArmFix2
+  - first:
+      213: -3606683239482074504
+    second: AlienAtlas_ArmFix3
+  externalObjects: {}
+  serializedVersion: 10
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 75
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: AlienAtlas_LegR
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 197
+        width: 13
+        height: 53
+      alignment: 9
+      pivot: {x: 0.5, y: 0.7295405}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b4357eb8c02118fc0800000000000000
+      internalID: -3494491990766693557
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AlienAtlas_LegL
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 196
+        width: 13
+        height: 53
+      alignment: 9
+      pivot: {x: 0.5, y: 0.7295405}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2321c394fcf8ba070800000000000000
+      internalID: 8118740873715126834
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AlienAtlas_Eye
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 226
+        width: 38
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 582ad222d71e226d0800000000000000
+      internalID: -3016600872824233339
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AlienAtlas_EyeLow
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 201
+        width: 38
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 663158b7225809f30800000000000000
+      internalID: 4580307204183495526
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AlienAtlas_Hairs
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 226
+        width: 31
+        height: 23
+      alignment: 9
+      pivot: {x: 0.4439375, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 95c3499f433834810800000000000000
+      internalID: 1748385343898664025
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AlienAtlas_Body
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 83
+        width: 60
+        height: 107
+      alignment: 9
+      pivot: {x: 0.5, y: 0.16973521}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3880caf9dd17aa4e0800000000000000
+      internalID: -1969636690340607869
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AlienAtlas_ArmL
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 17
+        width: 46
+        height: 62
+      alignment: 9
+      pivot: {x: 0.84633064, y: 0.16829444}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 12b772b09ebed4800800000000000000
+      internalID: 598393711657188129
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AlienAtlas_ArmR
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 9
+        width: 46
+        height: 59
+      alignment: 9
+      pivot: {x: 0.21034166, y: 0.24470766}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 085d54048cfd18d50800000000000000
+      internalID: 6737912568687744384
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AlienAtlas_ArmHideL
+      rect:
+        serializedVersion: 2
+        x: 109
+        y: 12
+        width: 68
+        height: 46
+      alignment: 9
+      pivot: {x: 0.43184528, y: 0.7770642}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b1e3c9e8a2c8e51e0800000000000000
+      internalID: -2207172652955845093
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AlienAtlas_ArmHideR
+      rect:
+        serializedVersion: 2
+        x: 181
+        y: 9
+        width: 71
+        height: 47
+      alignment: 9
+      pivot: {x: 0.585674, y: 0.21650437}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 83faa08ada631bbb0800000000000000
+      internalID: -4922092798262726856
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AlienAtlas_ArmFix1
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 90
+        width: 79
+        height: 73
+      alignment: 9
+      pivot: {x: 0.14067705, y: 0.09923961}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 77c2fc4eaf166aa00800000000000000
+      internalID: 767408516721749111
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AlienAtlas_ArmFix2
+      rect:
+        serializedVersion: 2
+        x: 124
+        y: 166
+        width: 69
+        height: 89
+      alignment: 9
+      pivot: {x: 0.84423184, y: 0.3991077}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ce275cd2276d7f50800000000000000
+      internalID: 6880769205115236032
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AlienAtlas_ArmFix3
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 80
+        width: 67
+        height: 53
+      alignment: 9
+      pivot: {x: 0.8112745, y: 0.60383964}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 87ad055e3bc72fdc0800000000000000
+      internalID: -3606683239482074504
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

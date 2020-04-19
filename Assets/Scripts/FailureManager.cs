@@ -9,7 +9,6 @@ public class FailureManager : MonoBehaviour
 
     [SerializeField] Transform[] failureSpots = null;
     [SerializeField] Failure failurePrefab = null;
-    [SerializeField] float averageTimeToFailure = 5;
     [SerializeField] Animator roverAnim;
     List<Failure> onGoingFailures = new List<Failure>();
 
@@ -43,6 +42,9 @@ public class FailureManager : MonoBehaviour
         {
             stopRoverToken.isOn = false;
             MoveRover.Instance.Go();
+            roverAnim.SetTrigger("Happy");
+            RoverAudio.Instance.StopLoop();
+            RoverAudio.Instance.PlayClip(5);
         }
     }
 
@@ -52,7 +54,7 @@ public class FailureManager : MonoBehaviour
 
         while(GameManager.isPlaying)
         {
-            if(Random.Range(0f, 1f)<Time.deltaTime/ averageTimeToFailure)
+            if(Random.Range(0f, 1f)<Time.deltaTime/ GameProgress.AverageFailureTime)
             {
                 //Failure
                 FailureType type = (FailureType)Random.Range(0, System.Enum.GetValues(typeof(FailureType)).Length);
@@ -60,6 +62,8 @@ public class FailureManager : MonoBehaviour
                 //If there are no failure of this type on going
                 if(!onGoingFailures.Exists(f=>f.type == type))
                 {
+                    print("Failure " + type);
+
                     stopRoverToken.isOn = true;
                     MoveRover.Instance.Stop();
 
@@ -70,8 +74,9 @@ public class FailureManager : MonoBehaviour
                     onGoingFailures.Add(newFailure);
                     newFailure.Init(type, roverAnim);
                 }
-
             }
+
+            yield return null;
         }
     }
 }

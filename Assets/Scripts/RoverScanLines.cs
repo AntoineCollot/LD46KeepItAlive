@@ -9,6 +9,7 @@ public class RoverScanLines : MonoBehaviour
     [SerializeField] float maxDistance = 10;
     [SerializeField] float projectionProgressTime = 0.5f;
     [SerializeField] float scanTime = 1;
+    [SerializeField] Transform head = null;
     float defaultAspectRatio;
 
     private void Start()
@@ -23,6 +24,7 @@ public class RoverScanLines : MonoBehaviour
 
     public void Scan()
     {
+        RoverAudio.Instance.PlayClip(1);
         foreach (Projector p in projectors)
         {
             p.aspectRatio = defaultAspectRatio;
@@ -99,5 +101,10 @@ public class RoverScanLines : MonoBehaviour
         {
             return 1;
         }
+    }
+
+    private void Update()
+    {
+        transform.eulerAngles = Vector3.up * head.eulerAngles.y;
     }
 }

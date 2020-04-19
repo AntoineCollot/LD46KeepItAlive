@@ -54,7 +54,7 @@ public class RockGenerator : MonoBehaviour
         {
             Transform newRock = SpawnRock();
             newRock.gameObject.name = "InitRock " + i.ToString();
-            newRock.Translate(Vector3.right * 10 * i, Space.World);
+            newRock.Translate(Vector3.right * 15 * (i - 1), Space.World);
         }
     }
 

@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public static bool isPlaying { get; private set; }
     public UnityEvent onGameStart = new UnityEvent();
     public UnityEvent onGameOver = new UnityEvent();
+    [SerializeField] TMPro.TextMeshProUGUI explanationText;
 
     public static GameManager Instance;
 
@@ -24,9 +25,11 @@ public class GameManager : MonoBehaviour
         onGameStart.Invoke();
     }
 
-    public void GameOver()
+    public void GameOver(string failureMessage)
     {
         isPlaying = false;
         onGameOver.Invoke();
+
+        explanationText.text = failureMessage;
     }
 }

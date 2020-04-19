@@ -41,6 +41,7 @@ public class HeadLook : MonoBehaviour
                 toCharacter.y = 0;
                 if(Vector3.Angle(toCharacter,Vector3.right)<10)
                 {
+                    RoverAudio.Instance.PlayClip(0);
                     lookState = LookState.Character;
                 }
                 break;

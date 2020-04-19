@@ -19,19 +19,46 @@ public class ScanManager : MonoBehaviour
 
     [SerializeField] LayerMask playerScanLayers=0;
 
-    StateToken stopRoverToken;
+    StateToken roverScanningToken;
+
+    [Header("Antena Scan")]
+    [SerializeField] AnteneScanLine antenaScan = null;
+    [SerializeField] float firstAntenaScanTime = 20;
+    StateToken antenaScanningToken;
+
+    [Header("Satellite Scan")]
+    [SerializeField] SateliteScan satelliteScan = null;
+    [SerializeField] float firstSatelliteScanTime = 45;
 
     // Start is called before the first frame update
     void Start()
     {
-        stopRoverToken = new StateToken();
-        MoveRover.Instance.stopState.Add(stopRoverToken);
+        roverScanningToken = new StateToken();
+        antenaScanningToken = new StateToken();
+        MoveRover.Instance.stopState.Add(roverScanningToken);
+        //MoveRover.Instance.stopState.Add(antenaScanningToken);
         GameManager.Instance.onGameStart.AddListener(StartScanning);
     }
 
     void StartScanning()
     {
         StartCoroutine(RoverScanLoop());
+        StartCoroutine(AntenaScanLoop());
+    }
+
+    IEnumerator AntenaScanLoop()
+    {
+        yield return new WaitForSeconds(firstAntenaScanTime);
+
+        while(GameManager.isPlaying)
+        {
+            print("Start Antena Scan");
+            antenaScanningToken.isOn = true;
+            yield return new WaitForSeconds(antenaScan.Scan());
+            antenaScanningToken.isOn = false;
+
+            yield return new WaitForSeconds(GameProgress.AntenaScanInterval);
+        }
     }
 
     IEnumerator RoverScanLoop()
@@ -76,7 +103,7 @@ public class ScanManager : MonoBehaviour
                 yield break;
         }
 
-        stopRoverToken.isOn = true;
+        roverScanningToken.isOn = true;
         MoveRover.Instance.Stop();
 
         scanLines.Scan();
@@ -84,13 +111,13 @@ public class ScanManager : MonoBehaviour
 
         if(IsPlayerInView(45))
         {
-            GameManager.Instance.GameOver();
+            GameManager.Instance.GameOver("You have been seen");
         }
         scanLines.HideAll(roverHideScanAnimTime);
 
         yield return new WaitForSeconds(roverHideScanAnimTime);
 
-        stopRoverToken.isOn = false;
+        roverScanningToken.isOn = false;
         MoveRover.Instance.Go();
 
         yield return new WaitForSeconds(roverPostScanPauseTime);
@@ -108,10 +135,10 @@ public class ScanManager : MonoBehaviour
         Vector3 raycastOrigin = roverScanOrigin.position;
         raycastOrigin.y = 1;
 
-        if (Vector3.Angle(toPlayer, lookDir) < angle)
+        if (Vector3.Angle(toPlayer, lookDir) < angle * 0.65f)
         {
             RaycastHit hit;
-            if (Physics.Raycast(new Ray(raycastOrigin, toPlayer), out hit, playerScanLayers))
+            if (Physics.Raycast(new Ray(raycastOrigin, toPlayer), out hit,18, playerScanLayers))
             {
                 if (hit.collider.gameObject.tag == "Character")
                 {
@@ -121,4 +148,18 @@ public class ScanManager : MonoBehaviour
         }
         return false;
     }
+
+#if UNITY_EDITOR
+    private void OnDrawGizmos()
+    {
+        if (!Application.isPlaying)
+            return;
+        Gizmos.color = Color.green;
+
+        if (IsPlayerInView(45))
+            Gizmos.color = Color.red;
+
+        Gizmos.DrawLine(roverScanOrigin.position, CharacterControls.Position);
+    }
+#endif
 }
