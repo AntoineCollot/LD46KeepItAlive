@@ -9,18 +9,27 @@ public class ScanManager : MonoBehaviour
     [Header("Rover Scan")]
     [SerializeField] Transform roverScanOrigin = null;
     [SerializeField] HeadLook headLook = null;
-    [SerializeField] Projector roverScanProjector;
+    [SerializeField] RoverScanLines scanLines;
 
     [SerializeField] float roverScanMinInterval = 2;
     [SerializeField] float roverAverageScanInterval = 10;
     [SerializeField] float roverScanProgressTime = 3;
-    [SerializeField] float roverScanPauseTime = 2;
     [SerializeField] float roverPostScanPauseTime = 1;
     [SerializeField] float roverHideScanAnimTime = 0.3f;
-    [SerializeField] float roverScanAngle = 45;
+
+    [SerializeField] LayerMask playerScanLayers=0;
+
+    StateToken stopRoverToken;
 
     // Start is called before the first frame update
     void Start()
+    {
+        stopRoverToken = new StateToken();
+        MoveRover.Instance.stopState.Add(stopRoverToken);
+        GameManager.Instance.onGameStart.AddListener(StartScanning);
+    }
+
+    void StartScanning()
     {
         StartCoroutine(RoverScanLoop());
     }
@@ -28,20 +37,21 @@ public class ScanManager : MonoBehaviour
     IEnumerator RoverScanLoop()
     {
         float lastScanTimer = 0;
-        while(true)
+        while(GameManager.isPlaying)
         {
             lastScanTimer += Time.deltaTime / roverScanMinInterval;
             if(lastScanTimer>1)
             {
                 //Check if we should scan
                 bool scan = Random.Range(0f, 1f) < Time.deltaTime / roverAverageScanInterval;
-                print(scan + " ; " + Time.deltaTime / roverAverageScanInterval);
                 if (scan)
                 {
-                    //yield return StartCoroutine(PerformRoverScan());
+                    yield return StartCoroutine(PerformRoverScan());
                     lastScanTimer = 0;
                 }
             }
+
+            yield return null;
         }
     }
 
@@ -51,51 +61,64 @@ public class ScanManager : MonoBehaviour
         switch (headLook.lookState)
         {
             case HeadLook.LookState.Character:
+                headLook.lookState = HeadLook.LookState.ScanCharacter;
                 break;
             case HeadLook.LookState.Forward:
             case HeadLook.LookState.Target:
                 //Ask to look in a random direction
                 headLook.LookRandomDirection();
-                yield return new WaitForSeconds(1);
+                yield return new WaitForSeconds(0.5f);
+                headLook.lookState = HeadLook.LookState.ScanFixe;
                 break;
             default:
-                break;
-            case HeadLook.LookState.Scan:
+            case HeadLook.LookState.ScanFixe:
             case HeadLook.LookState.None:
                 yield break;
         }
 
-        headLook.lookState = HeadLook.LookState.Scan;
+        stopRoverToken.isOn = true;
+        MoveRover.Instance.Stop();
 
-        //The projector aspect ratio
-        float aspectRatio = 45 / roverScanAngle;
-        roverScanProjector.aspectRatio = aspectRatio;
+        scanLines.Scan();
+        yield return new WaitForSeconds(roverScanProgressTime);
 
-        float scanProgress = 0;
-        while(scanProgress<1)
+        if(IsPlayerInView(45))
         {
-            scanProgress += Time.deltaTime / roverScanProgressTime;
-
-            roverScanProjector.material.SetFloat("_Reveal", scanProgress);
-
-            yield return null;
+            GameManager.Instance.GameOver();
         }
+        scanLines.HideAll(roverHideScanAnimTime);
 
-        yield return new WaitForSeconds(roverScanPauseTime);
+        yield return new WaitForSeconds(roverHideScanAnimTime);
 
-        float hideScanAnimProgress = 0;
-        while(hideScanAnimProgress<1)
-        {
-            hideScanAnimProgress += Time.deltaTime / roverHideScanAnimTime;
-            roverScanProjector.aspectRatio = Curves.QuadEaseInOut(aspectRatio, 0, Mathf.Clamp01(hideScanAnimProgress));
-            yield return null;
-        }
-
-        roverScanProjector.material.SetFloat("_Reveal", 0);
+        stopRoverToken.isOn = false;
+        MoveRover.Instance.Go();
 
         yield return new WaitForSeconds(roverPostScanPauseTime);
 
         headLook.lookState = HeadLook.LookState.Forward;
         print("Rover Scan Finished");
+    }
+
+    public bool IsPlayerInView(float angle)
+    {
+        Vector3 toPlayer = CharacterControls.Position - roverScanOrigin.position;
+        toPlayer.y = 0;
+        Vector3 lookDir = headLook.FlatDirection;
+
+        Vector3 raycastOrigin = roverScanOrigin.position;
+        raycastOrigin.y = 1;
+
+        if (Vector3.Angle(toPlayer, lookDir) < angle)
+        {
+            RaycastHit hit;
+            if (Physics.Raycast(new Ray(raycastOrigin, toPlayer), out hit, playerScanLayers))
+            {
+                if (hit.collider.gameObject.tag == "Character")
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

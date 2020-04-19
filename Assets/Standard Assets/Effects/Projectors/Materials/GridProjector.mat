@@ -48,13 +48,13 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ShapeTex:
-        m_Texture: {fileID: 2800000, guid: acdb379da4685a545803163fdcfc1428, type: 3}
+        m_Texture: {fileID: 2800000, guid: c871559ef7dea634397028983207cb74, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _Hide: 0
-    - _PaternTiling: 25
-    - _Reveal: 1.0008299
+    - _PaternTiling: 30
+    - _Reveal: 1.0200135
     m_Colors:
     - BumpMapScale: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}

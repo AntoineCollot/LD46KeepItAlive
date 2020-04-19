@@ -6,6 +6,7 @@ public class CharacterControls : MonoBehaviour
 {
     [SerializeField] Vector2 speed=Vector2.one;
 
+    new Rigidbody rigidbody;
     public static CharacterControls Instance;
 
     public static Vector3 Position
@@ -20,6 +21,7 @@ public class CharacterControls : MonoBehaviour
     void Awake()
     {
         Instance = this;
+        rigidbody = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -33,6 +35,6 @@ public class CharacterControls : MonoBehaviour
         movement.x = inputs.x * speed.x;
         movement.z = inputs.y * speed.y;
 
-        transform.Translate(movement * Time.deltaTime, Space.World);
+        rigidbody.position = rigidbody.position + movement * Time.deltaTime;
     }
 }
