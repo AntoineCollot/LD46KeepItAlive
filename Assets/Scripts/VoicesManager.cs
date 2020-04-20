@@ -6,13 +6,23 @@ public class VoicesManager : MonoBehaviour
 {
     [SerializeField] ClipTranscripted[] failureClips = null;
     [SerializeField] ClipTranscripted[] fixClips = null;
-    [SerializeField] ClipTranscripted[] postRadarClips = null;
+    [SerializeField] float randomClipAverageInterval = 20;
+    [SerializeField] float minRandomClipInterval = 10;
+    [SerializeField] ClipTranscripted[] randomClips = null;
+    [SerializeField] ClipTranscripted[] gameOverClips = null;
+    [SerializeField] ClipTranscripted preScanClip = null;
+    [SerializeField] ClipTranscripted scanningClip = null;
+    [SerializeField] DayCountClip[] dayCountClips = null;
 
-    int failId = -1;
+    int failureId = -1;
+    int randomClipId = -1;
+    int dayCountId = 0;
+    bool preScanningClipPlayed;
+    bool playFix =false;
+    float lastRandomClipTime;
 
     new AudioSource audio;
     Queue<ClipTranscripted> playQueue = new Queue<ClipTranscripted>();
-    bool playFix =false;
 
     Transcript transcript;
     public static VoicesManager Instance;
@@ -25,6 +35,11 @@ public class VoicesManager : MonoBehaviour
         transcript = GetComponent<Transcript>();
     }
 
+    private void Start()
+    {
+        GameManager.Instance.onGameOver.AddListener(PlayGameOverClip);
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -33,12 +48,44 @@ public class VoicesManager : MonoBehaviour
             if (playQueue.Count>0)
             {
                 ClipTranscripted clip = playQueue.Dequeue();
-                audio.clip = clip.clip;
-                audio.Play();
-
-                transcript.Type(clip.transcript);
+                PlayClip(clip);
             }
         }
+
+        //Random clips
+        {
+            //If nothing is waiting
+            if(GameManager.isPlaying && playQueue.Count==0)
+            {
+                if(Random.Range(0f, 1f)<Time.deltaTime/ randomClipAverageInterval && Time.time > lastRandomClipTime + minRandomClipInterval)
+                {
+                    lastRandomClipTime = Time.time;
+                    PlayNextRandomClip();
+                }
+            }
+        }
+
+        //DayCount
+        if(dayCountId<dayCountClips.Length && GameProgress.DayCount == dayCountClips[dayCountId].dayCount)
+        {
+            playQueue.Enqueue(dayCountClips[dayCountId].clipTranscripted);
+            dayCountId++;
+        }
+    }
+    
+    void PlayClip(ClipTranscripted clip)
+    {
+        audio.clip = clip.clip;
+        audio.Play();
+
+        transcript.Type(clip.transcript);
+    }
+
+    public void PlayNextRandomClip()
+    {
+        randomClipId++;
+        if (randomClipId < randomClips.Length)
+            playQueue.Enqueue(randomClips[randomClipId]);
     }
 
     public void PlayNextFailureClip()
@@ -47,21 +94,50 @@ public class VoicesManager : MonoBehaviour
         if (audio.isPlaying)
             return;
 
-        failId++;
+        failureId++;
         playFix = true;
 
-        if (failId< failureClips.Length && failureClips[failId]!=null)
+        if (failureId< failureClips.Length && failureClips[failureId]!=null)
         {
-            playQueue.Enqueue(failureClips[failId]);
+            playQueue.Enqueue(failureClips[failureId]);
         }
     }
 
     public void PlayFixClip()
     {
-        if (playFix && failId < fixClips.Length && fixClips[failId] != null)
+        if (playFix && failureId < fixClips.Length && fixClips[failureId] != null)
         {
-            playQueue.Enqueue(fixClips[failId]);
+            playQueue.Enqueue(fixClips[failureId]);
         }
         playFix = false;
+    }
+
+    public void PlayGameOverClip()
+    {
+        PlayClip(gameOverClips[Random.Range(0, gameOverClips.Length)]);
+    }
+
+    public void PlayScanningClip()
+    {
+        if(playQueue.Count==0 && Random.Range(0f, 1f)<0.2f)
+        {
+            playQueue.Enqueue(scanningClip);
+        }
+    }
+
+    public void PlayPreScanClip()
+    {
+        if (!preScanningClipPlayed && playQueue.Count == 0 && Random.Range(0f, 1f) < 0.3f)
+        {
+            preScanningClipPlayed = true;
+            playQueue.Enqueue(preScanClip);
+        }
+    }
+
+    [System.Serializable]
+    public struct DayCountClip
+    {
+        public int dayCount;
+        public ClipTranscripted clipTranscripted;
     }
 }

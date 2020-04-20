@@ -53,12 +53,23 @@ public class ScanManager : MonoBehaviour
 
         while(GameManager.isPlaying)
         {
-            print("Start Antena Scan");
+            VoicesManager.Instance.PlayScanningClip();
             antenaScanningToken.isOn = true;
             yield return new WaitForSeconds(antenaScan.Scan());
             antenaScanningToken.isOn = false;
 
-            yield return new WaitForSeconds(GameProgress.AntenaScanInterval);
+            if (GameProgress.AntenaScanInterval > 3)
+            {
+                yield return new WaitForSeconds(GameProgress.AntenaScanInterval - 3);
+
+                VoicesManager.Instance.PlayPreScanClip();
+
+                yield return new WaitForSeconds(3);
+            }
+            else
+            {
+                yield return new WaitForSeconds(GameProgress.AntenaScanInterval);
+            }
         }
     }
 

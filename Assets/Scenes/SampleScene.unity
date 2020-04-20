@@ -1484,7 +1484,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -2876,8 +2876,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 9b5359e20518fa0499ed8f3a73e75ca0, type: 2}
-  m_sharedMaterial: {fileID: -6196375293480556410, guid: 9b5359e20518fa0499ed8f3a73e75ca0,
+  m_fontAsset: {fileID: 11400000, guid: 62d140318bf1c034789ccefbc7893266, type: 2}
+  m_sharedMaterial: {fileID: 1334984549462874784, guid: 62d140318bf1c034789ccefbc7893266,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -2903,15 +2903,15 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 60
-  m_fontSizeBase: 60
+  m_fontSize: 35
+  m_fontSizeBase: 35
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_textAlignment: 514
-  m_characterSpacing: 0
+  m_characterSpacing: -2
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -2992,7 +2992,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 734.3, y: 297.7}
+  m_SizeDelta: {x: 800, y: 250}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!1 &1353978865
 GameObject:
@@ -3818,10 +3818,48 @@ MonoBehaviour:
   failureClips:
   - {fileID: 11400000, guid: f423e7eddc6b1fb4ab67d38f5d34eaa5, type: 2}
   - {fileID: 11400000, guid: 37220b44d5fc52b46aec89888a7e18c0, type: 2}
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 346043f38f2cd4342a2eed36d174461a, type: 2}
+  - {fileID: 11400000, guid: 24ff29a48a99d4f49971a68c9bbcab80, type: 2}
+  - {fileID: 0}
+  - {fileID: 11400000, guid: ee4721c160fdffe4585c4c6719d0aaa8, type: 2}
+  - {fileID: 0}
+  - {fileID: 11400000, guid: a9b4da43bd834b14cba852fd5bd7cafa, type: 2}
+  - {fileID: 11400000, guid: 70399dc57b9965f4ca035998a303c5c7, type: 2}
   fixClips:
-  - {fileID: 11400000, guid: 6ee4a48c2d9db96458981fa99bb3f8d5, type: 2}
-  - {fileID: 11400000, guid: 3a3e096fb787e5b458ec554bf82f1d67, type: 2}
-  postRadarClips: []
+  - {fileID: 11400000, guid: 3af10f47a17fba943847825f0b772c01, type: 2}
+  - {fileID: 11400000, guid: 0e36b6131d43619449b1ffe3306f5e84, type: 2}
+  - {fileID: 11400000, guid: 39403fd1527c6954db1624fa1eccefce, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 6944d0d4b4410f04eabdf81dc3160715, type: 2}
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 8b2993ec4f6507b4bbafb17b3f8d94c2, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  randomClipAverageInterval: 30
+  minRandomClipInterval: 30
+  randomClips:
+  - {fileID: 11400000, guid: f9b16f513ac85fa4e888518c83877a84, type: 2}
+  - {fileID: 11400000, guid: abb98cc913487a64dbb2d615f48f3b73, type: 2}
+  - {fileID: 11400000, guid: 18903998d4e63f74697bbca2f9e0f217, type: 2}
+  - {fileID: 11400000, guid: 38343ccde7f6aa0489e48148f8e702bf, type: 2}
+  gameOverClips:
+  - {fileID: 11400000, guid: eb9ecca419c17df40aa240f2ad9d8677, type: 2}
+  - {fileID: 11400000, guid: 7e7f9f1a0b5f987439870d289fa4a1c5, type: 2}
+  preScanClip: {fileID: 11400000, guid: 64e213eb02d29944fa1890d2cec30154, type: 2}
+  scanningClip: {fileID: 11400000, guid: 66092487d86c70b4a9dabb61ba4e9b54, type: 2}
+  dayCountClips:
+  - dayCount: 10
+    clipTranscripted: {fileID: 11400000, guid: 5d136a28240448f42861b6e4173df5e3, type: 2}
+  - dayCount: 20
+    clipTranscripted: {fileID: 11400000, guid: 3a3e096fb787e5b458ec554bf82f1d67, type: 2}
+  - dayCount: 30
+    clipTranscripted: {fileID: 11400000, guid: 6ee4a48c2d9db96458981fa99bb3f8d5, type: 2}
+  - dayCount: 40
+    clipTranscripted: {fileID: 11400000, guid: 5d90cc7ec827d0641b03bf8ee2db097b, type: 2}
+  - dayCount: 50
+    clipTranscripted: {fileID: 11400000, guid: 474b9c62f6b0bc547b681517b9559995, type: 2}
 --- !u!82 &1592099136
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3946,7 +3984,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   transcriptText: {fileID: 1251666192}
-  timePerLetter: 0.05
+  timePerLetter: 0.02
+  textDisplayTime: 3
 --- !u!1 &1608836275
 GameObject:
   m_ObjectHideFlags: 0
@@ -4768,7 +4807,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.4
   m_Pitch: 1
   Loop: 0
   Mute: 0
