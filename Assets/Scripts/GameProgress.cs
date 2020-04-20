@@ -8,7 +8,7 @@ public class GameProgress : MonoBehaviour
 
     //Score
     public static float startTime = 0;
-    public const int EndGameTime = 1000;
+    public const int EndGameTime = 600;
     public static float GameTime
     {
         get

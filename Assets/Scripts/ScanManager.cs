@@ -124,6 +124,7 @@ public class ScanManager : MonoBehaviour
         if(IsPlayerInView(45))
         {
             GameManager.Instance.GameOver("You have been seen");
+            VoicesManager.Instance.PlayGameOverClip(true);
         }
         scanLines.HideAll(roverHideScanAnimTime);
 

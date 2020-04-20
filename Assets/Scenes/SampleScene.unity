@@ -368,10 +368,10 @@ MonoBehaviour:
   antenaEndInterval: 5
   averageFailureStartTime: 20
   averageFailureEndTime: 5
-  averageSatelliteScanStartTime: 20
+  averageSatelliteScanStartTime: 15
   averageSatelliteScanEndTime: 5
-  satelliteScanStartWidth: 4
-  satelliteScanEndWidth: 10
+  satelliteScanStartWidth: 6
+  satelliteScanEndWidth: 13
 --- !u!1001 &166594092
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1451,7 +1451,7 @@ Rigidbody:
   m_GameObject: {fileID: 696243678}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0
+  m_Drag: 0.3
   m_AngularDrag: 0.05
   m_UseGravity: 0
   m_IsKinematic: 0
@@ -3844,9 +3844,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: abb98cc913487a64dbb2d615f48f3b73, type: 2}
   - {fileID: 11400000, guid: 18903998d4e63f74697bbca2f9e0f217, type: 2}
   - {fileID: 11400000, guid: 38343ccde7f6aa0489e48148f8e702bf, type: 2}
-  gameOverClips:
+  gameOverSeenClips:
   - {fileID: 11400000, guid: eb9ecca419c17df40aa240f2ad9d8677, type: 2}
   - {fileID: 11400000, guid: 7e7f9f1a0b5f987439870d289fa4a1c5, type: 2}
+  gameOverBrokenClips:
+  - {fileID: 11400000, guid: 9208f2862b8e91047a4d9e74ceae9dd6, type: 2}
   preScanClip: {fileID: 11400000, guid: 64e213eb02d29944fa1890d2cec30154, type: 2}
   scanningClip: {fileID: 11400000, guid: 66092487d86c70b4a9dabb61ba4e9b54, type: 2}
   dayCountClips:
@@ -3860,6 +3862,7 @@ MonoBehaviour:
     clipTranscripted: {fileID: 11400000, guid: 5d90cc7ec827d0641b03bf8ee2db097b, type: 2}
   - dayCount: 50
     clipTranscripted: {fileID: 11400000, guid: 474b9c62f6b0bc547b681517b9559995, type: 2}
+  startClip: {fileID: 11400000, guid: 657c7552bce72c34ba1e927978e2ccda, type: 2}
 --- !u!82 &1592099136
 AudioSource:
   m_ObjectHideFlags: 0
@@ -5171,7 +5174,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c625c4b45f209884e9cf5d95d856a75e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxDistanceFromRover: 8
+  maxDistanceFromRover: 10
   centerPoint: {fileID: 1781845622}
   gridProjector: {fileID: 60067867}
   showGridDelay: 1
@@ -5702,9 +5705,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rockPrefabs:
+  - {fileID: 2866536658824368563, guid: a642d6bb648307d4fa5c44c9a6691b25, type: 3}
   - {fileID: 3342796016677939523, guid: 75b6e3bcfee225147a421cd20245f4d1, type: 3}
-  - {fileID: 3342796016677939523, guid: 75b6e3bcfee225147a421cd20245f4d1, type: 3}
-  - {fileID: 3648315145790258875, guid: 3b0cb1d85a50be344a912050bbad1424, type: 3}
   - {fileID: 9014146714107211176, guid: 2677633cc9740ca49a948f84bb6bed38, type: 3}
   - {fileID: 7255478835545198450, guid: 083d44f37c822d647976d8c1456cf92e, type: 3}
   minSize: 1

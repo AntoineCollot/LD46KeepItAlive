@@ -70,6 +70,7 @@ public class AnteneScanLine : MonoBehaviour
                         if (hit.collider.tag == "Character")
                         {
                             GameManager.Instance.GameOver("You have been seen");
+                            VoicesManager.Instance.PlayGameOverClip(true);
                         }
                     }
                 }

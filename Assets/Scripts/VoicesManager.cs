@@ -9,10 +9,12 @@ public class VoicesManager : MonoBehaviour
     [SerializeField] float randomClipAverageInterval = 20;
     [SerializeField] float minRandomClipInterval = 10;
     [SerializeField] ClipTranscripted[] randomClips = null;
-    [SerializeField] ClipTranscripted[] gameOverClips = null;
+    [SerializeField] ClipTranscripted[] gameOverSeenClips = null;
+    [SerializeField] ClipTranscripted[] gameOverBrokenClips = null;
     [SerializeField] ClipTranscripted preScanClip = null;
     [SerializeField] ClipTranscripted scanningClip = null;
     [SerializeField] DayCountClip[] dayCountClips = null;
+    [SerializeField] ClipTranscripted startClip = null;
 
     int failureId = -1;
     int randomClipId = -1;
@@ -37,7 +39,7 @@ public class VoicesManager : MonoBehaviour
 
     private void Start()
     {
-        GameManager.Instance.onGameOver.AddListener(PlayGameOverClip);
+        GameManager.Instance.onGameStart.AddListener(PlayStartClip);
     }
 
     // Update is called once per frame
@@ -71,6 +73,11 @@ public class VoicesManager : MonoBehaviour
             playQueue.Enqueue(dayCountClips[dayCountId].clipTranscripted);
             dayCountId++;
         }
+    }
+
+    public void PlayStartClip()
+    {
+        playQueue.Enqueue(startClip);
     }
     
     void PlayClip(ClipTranscripted clip)
@@ -112,9 +119,12 @@ public class VoicesManager : MonoBehaviour
         playFix = false;
     }
 
-    public void PlayGameOverClip()
+    public void PlayGameOverClip(bool hasBeenSeen)
     {
-        PlayClip(gameOverClips[Random.Range(0, gameOverClips.Length)]);
+        if(hasBeenSeen)
+            PlayClip(gameOverSeenClips[Random.Range(0, gameOverSeenClips.Length)]);
+        else
+            PlayClip(gameOverBrokenClips[Random.Range(0, gameOverBrokenClips.Length)]);
     }
 
     public void PlayScanningClip()

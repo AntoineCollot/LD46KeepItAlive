@@ -31,7 +31,7 @@ public class SateliteScan : MonoBehaviour
     {
         //Place the satellite
         Vector3 pos = transform.position;
-        pos.x = centerPoint.position.x + Random.Range(-maxDistanceFromRover, maxDistanceFromRover);
+        pos.x = centerPoint.position.x + Random.Range(-maxDistanceFromRover, maxDistanceFromRover) + 4;
         transform.position = pos;
 
         StartCoroutine(SatelliteTraveling());
@@ -78,6 +78,7 @@ public class SateliteScan : MonoBehaviour
         if(Mathf.Abs(toPlayer.x)<width * 0.5f)
         {
             GameManager.Instance.GameOver("You have been seen");
+            VoicesManager.Instance.PlayGameOverClip(true);
         }
 
         t = 0;

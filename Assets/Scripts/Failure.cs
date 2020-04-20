@@ -113,5 +113,6 @@ public class Failure : MonoBehaviour
         if (isBeingFixed)
             yield break;
         GameManager.Instance.GameOver("You failed to fix the rover in time");
+        VoicesManager.Instance.PlayGameOverClip(false);
     }
 }

@@ -54,7 +54,7 @@ Material:
     m_Floats:
     - _Hide: 0
     - _PaternTiling: 10
-    - _Reveal: 0.66674376
+    - _Reveal: 0
     m_Colors:
     - BumpMapScale: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
